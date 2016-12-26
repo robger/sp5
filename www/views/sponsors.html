@@ -1,0 +1,29 @@
+
+<div ng-controller="sponsorsController as sp">
+    <div class="blog-masthead">
+      <div class="container">
+        <nav class="blog-nav sub-navbar-fixed-top">
+          <a class="blog-nav-item" ng-class="{ 'active'  : (sp.activeTab === 0)}" ng-click="sp.navigateTab(0)">Home</a>
+          <a class="blog-nav-item" ng-class="{ 'active'  : (sp.activeTab === 1)}" ng-click="sp.navigateTab(1)">Huidige</a>
+          <a class="blog-nav-item" ng-class="{ 'active'  : (sp.activeTab === 2)}" ng-click="sp.navigateTab(2)">In Opbouw</a>
+          <a class="blog-nav-item" ng-class="{ 'active'  : (sp.activeTab === 3)}" ng-click="sp.navigateTab(3)">Selectie</a>
+          <a class="blog-nav-item" ng-class="{ 'active'  : (sp.activeTab === 4)}" ng-click="sp.navigateTab(4)">Bedrijven</a>
+          <a class="blog-nav-item" ng-class="{ 'active'  : (sp.activeTab === 5)}" ng-click="sp.navigateTab(5)">Mailing</a>
+          <a class="blog-nav-item" ng-class="{ 'active'  : (sp.activeTab === 6)}" ng-click="sp.navigateTab(6)">To Do's</a>
+          <a class="blog-nav-item" ng-class="{ 'active'  : (sp.activeTab === 7)}" ng-click="sp.navigateTab(7)">Documenten</a>
+        </nav>
+      </div>
+    </div>
+
+    </br>
+
+    <div class="container">
+      <div id="grid1" ui-grid="sp.gridOptions" ui-grid-exporter ui-grid-selection class="grid"></div>
+    </div>
+
+    <div class="jumbotron">
+      <div class="container">
+        <pre>{{sp | json}}</pre>
+      </div>
+    </div>
+</div>

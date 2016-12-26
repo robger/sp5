@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <link rel="icon" href="favicon.ico" />
+
+    <title update-title></title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="resources/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+    <!-- Bootstrap theme -->
+    <link href="resources/bootstrap/dist/css/bootstrap-theme.css" rel="stylesheet" />
+    <!-- Angular CSP-->
+    <link href="resources/angular/angular-csp.css" rel="stylesheet" />
+    <link href="resources/angular-ui-grid/ui-grid.css" rel="stylesheet" />
+
+    <!-- Custom styles for this template -->
+    <link href="css/style.css" rel="stylesheet" />
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="lib/html5shiv/html5shiv.min.js"></script>
+      <script src="lib/respond/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- require -->
+    <script src="lib/require/require.js"></script>
+
+    <!-- angularjs -->
+    <link href="lib/angular/css/angular-csp.css" rel="stylesheet" />
+    <script src="resources/angular/angular.js"></script>
+    <script src="resources/angular-animate/angular-animate.js"></script>
+    <script src="resources/angular-ui-router/release/angular-ui-router.js"></script>
+
+    <script src="lib/angular/js/angular-ui-bootstrap-tpls.js"></script>
+    <script src="resources/angular-ui-grid/ui-grid.js"></script>
+    <script src="lib/pdfmake/build/pdfmake.js"></script>
+    <script src="lib/pdfmake/build/vfs_fonts.js"></script>
+    <script src="lib/underscorejs/underscore-min.js"></script>
+    <script src="//cdn.backand.net/backand/dist/1.8.11/backand.min.js"></script>
+
+    <!-- general -->
+    <script src="js/app.js"></script>
+    <script src="js/nav-controller.js"></script>
+    <script src="js/common/translate-service.js"></script>
+    <script src="js/common/modal-service.js"></script>
+    <script src="js/common/notification-service.js"></script>
+
+    <!-- controllers + services -->
+    <script src="js/sponsors/sponsors-controller.js"></script>
+    <script src="js/sponsors/sponsors-dataservice.js"></script>
+
+    <script src="js/users/users-controller.js"></script>
+    <script src="js/users/users-dataservice.js"></script>
+  </head>
+
+  <body>
+    <nav class="navbar navbar-inverse navbar-fixed-top" ng-controller="navController">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#/" ng-bind="title"></a>
+        </div>
+        <script type="text/ng-template" id="nav-item.html">
+          <span ng-if="page.name && !page.url">{{translateService.getTranslation(page.name)}}</span>
+          <a ng-if="page.name && page.url && !(page.subPages && page.subPages.length)" href="{{page.url}}">{{translateService.getTranslation(page.name)}}</a>
+          <a ng-if="page.name && page.url && page.subPages && page.subPages.length" href="{{page.url}}" data-toggle="dropdown" role="button" aria-expanded="false"
+          class="dropdown-toggle">{{translateService.getTranslation(page.name)}} <span class="caret"></span>
+          </a>
+          <ul ng-if="page.subPages && page.subPages.length" class="dropdown-menu" role="menu">
+            <li ng-class="{'divider': !page.name && !page.url, 'dropdown-header': page.name && !page.url, active: isUrl(page.url)}" ng-repeat="page in page.subPages" ng-include="'nav-item.html'">
+            </li>
+          </ul>
+        </script>
+
+        <div id="navbar" class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li ng-repeat="page in pages" ng-class="{active: isUrl(page.url)}" ng-include="'nav-item.html'">
+            </li>
+            <li class="navbar-right dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="true">{{translateService.chosenLanguage}} <span class="caret"></span></a>
+              <ul class="dropdown-menu" role="menu">
+                <li><a href="#" ng-repeat="lang in translateService.languages" ng-click="translateService.setCurrentLanguage(lang)">{{lang}}</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+
+    <div class="ui-view-container">
+      <div ui-view>
+        <!-- default content can go here but there will be a flicker on some pages loading -->
+      </div>
+    </div>
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="resources/jquery/dist/jquery.js"></script>
+    <script src="resources/bootstrap/dist/js/bootstrap.js"></script>
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="lib/assets/js/ie10-viewport-bug-workaround.js"></script>
+
+  </body>
+</html>

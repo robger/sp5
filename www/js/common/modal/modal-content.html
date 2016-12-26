@@ -1,0 +1,25 @@
+<div class="modal-header">
+    <h3 class="modal-title" id="modal-title">{{ctrl.translateService.getTranslation('Edit')}}</h3>
+</div>
+<div class="modal-body" id="modal-body">
+    <div class="row">
+      <div class="col-sm-4"><div class="form-group"><label>{{ctrl.translateService.getTranslation('FirstName')}}</label></div></div>
+      <div class="col-sm-8"><input type="text" class="form-control" ng-model="ctrl.selectedItem.FirstName"></div>
+    </div>
+    <div class="row">
+      <div class="col-sm-4"><div class="form-group"><label>{{ctrl.translateService.getTranslation('LastName')}}</label></div></div>
+      <div class="col-sm-8"><input type="text" class="form-control" ng-model="ctrl.selectedItem.LastName"></div>
+    </div>
+    <div class="row">
+      <div class="col-sm-4"><div class="form-group"><label>{{ctrl.translateService.getTranslation('DefaultLanguage')}}</label></div></div>
+      <div class="col-sm-8"><input type="text" class="form-control" ng-model="ctrl.selectedItem.DefaultLanguage"></div>
+    </div>
+    <!-- <div class="row">
+      <div class="col-sm-4"><div class="form-group"><label>{{ctrl.translateService.getTranslation('IsMemberOfGroup')}}</label></div></div>
+      <div class="col-sm-8"><input type="text" class="form-control" ng-model="ctrl.selectedItem.IsMemberOfGroup"></div>
+    </div> -->
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" type="button" ng-click="ctrl.save()">{{ctrl.translateService.getTranslation('Save')}}</button>
+    <button class="btn btn-warning" type="button" ng-click="ctrl.cancel()">{{ctrl.translateService.getTranslation('Cancel')}}</button>
+</div>

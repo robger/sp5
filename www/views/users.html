@@ -1,0 +1,24 @@
+<div ng-controller="usersController">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <div class="well">
+          <div class="starter-template">
+            <h1>Gebruikers</h1>
+            <p class="lead">Beheer je gebruikers per groep</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <p>
+      <ul class="nav nav-pills" role="tablist">
+        <li role="presentation" ng-repeat="org in organisations" ng-class="{'active': (selectedOrgId == org.id)}"><a ng-click="selectOrg(org.id)">{{org.Name}}</a></li>
+        <button type="button" ng-click="addOrg()" class="btn btn-primary pull-right">+</button>
+      </ul>
+    </p>
+
+
+    <div id="grid1" ui-grid="gridOptions" ui-grid-exporter ui-grid-selection class="grid"></div>
+  </div>
+</div>
