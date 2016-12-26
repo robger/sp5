@@ -36,7 +36,7 @@
 	app.config(function($stateProvider, $urlRouterProvider, $controllerProvider,BackandProvider){
 		var origController = app.controller
 		app.controller = function (name, constructor){
-			debugger;
+			
 			$controllerProvider.register(name, constructor);
 			return origController.apply(this, arguments);
 		}

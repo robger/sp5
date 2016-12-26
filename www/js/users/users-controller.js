@@ -54,36 +54,35 @@ angular.module('app')
 				var modal = usersLayoutService.openEditModal(row);
 
 				modal.result.then(function(result){
-						// TODO: should be in one action instead of all properties seperatly
-						var result = result.config.data;
-						row.FirstName = result.FirstName;
-						row.LastName = result.LastName;
-						row.DefaultLanguage = result.DefaultLanguage;
-						row.IsMemberOfGroup = result.IsMemberOfGroup;
-						notificationService.showSuccess("Gebruikers", "Gebruiker succesvol opgeslaan");
+						if(result.type == 3 ){//EDIT
+							// TODO: should be in one action instead of all properties seperatly
+							var result = result.config.data;
+							row.FirstName = result.FirstName;
+							row.LastName = result.LastName;
+							row.DefaultLanguage = result.DefaultLanguage;
+							notificationService.showSuccess("Gebruikers", "Gebruiker succesvol opgeslaan");
+						}
+						else if(result.type == 4 ){//DELETE
+							$scope.gridOptions.data = _.filter($scope.gridOptions.data, function(dataRow){
+								return dataRow.id != row.id;
+							});
+							notificationService.showSuccess("Gebruikers", "Gebruiker werd op inactief geplaatst");
+						}
 					},function(error){
-						debugger;
+
 				});
 		}
 
 		$scope.addUser = function(){
-				var newObj = { IsMemberOfGroup:$scope.selectedOrgId };
+				var newObj = { IsMemberOfGroup:$scope.selectedOrgId, IsActive: true };
 				var modal = usersLayoutService.openAddModal(newObj);
 
 				modal.result.then(function(result){
-						// TODO: should be in one action instead of all properties seperatly
-						var result = result.config.data;
-						newObj.FirstName = result.FirstName;
-						newObj.LastName = result.LastName;
-						newObj.DefaultLanguage = result.DefaultLanguage;
-						newObj.IsMemberOfGroup = result.IsMemberOfGroup;
-						notificationService.showSuccess("Gebruikers", "Gebruiker succesvol toegevoegd");
 
-						debugger;
-						$scope.gridOptions.data.push(newObj);
-					},function(error){
-						debugger;
-				});
+						var newRow = result.data;
+						notificationService.showSuccess("Gebruikers", "Gebruiker succesvol toegevoegd");
+						$scope.gridOptions.data.push(newRow);
+					},function(error){});
 		}
 
 		$scope.selectOrg = function(orgId){
@@ -112,5 +111,4 @@ angular.module('app')
 		}
 
 		loadOrganisations();
-
 	});

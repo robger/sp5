@@ -1,5 +1,5 @@
 angular.module('app')
-	.controller('modalController', function($modalInstance,selectedItem,translateService,usersDataService,notificationService) {
+	.controller('userModalController', function($modalInstance,selectedItem,translateService,usersDataService,notificationService,modalService) {
     var self = this;
 
 		self.translateService = translateService;
@@ -7,8 +7,9 @@ angular.module('app')
 
     self.save = function () {
 			usersDataService.updateUser(self.selectedItem).then(
-				function(response){
-					$modalInstance.close(response);
+				function(result){
+					result.type = 3;
+					$modalInstance.close(result);
 				},function(error){
 					notificationService.showError("Gebruikers", "Gebruiker niet opgeslaan");
 				});
@@ -16,20 +17,28 @@ angular.module('app')
 
 		self.add = function(){
 			usersDataService.addUser(self.selectedItem).then(
-				function(response){
-					$modalInstance.close(response);
+				function(result){
+					$modalInstance.close(result);
 				},function(error){
 					notificationService.showError("Gebruikers", "Gebruiker niet opgeslaan");
 				});
 		}
 
 		self.delete = function(){
-			usersDataService.deleteUser(self.selectedItem).then(
-				function(response){
-					notificationService.showSuccess("Gebruikers", "Gebruiker werd op inactief geplaatst (TODO: nog verwijderen uit grid)");
-					$modalInstance.close(response);
+			var confirmModal = modalService.confirm("Gebruiker verwijderen","Ben je zeker dat je de geselecteerde gebruiker wil verwijderen?");
+
+			confirmModal.result.then(
+				function(result){
+
+					usersDataService.deleteUser(self.selectedItem).then(
+						function(result){
+							result.type = 4;
+							$modalInstance.close(result);
+						},function(error){
+							notificationService.showError("Gebruikers", "Gebruiker niet opgeslaan");
+						});
 				},function(error){
-					notificationService.showError("Gebruikers", "Gebruiker niet opgeslaan");
+
 				});
 		}
 

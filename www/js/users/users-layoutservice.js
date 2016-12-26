@@ -8,7 +8,7 @@ angular.module('app')
       return modalInstance = $modal.open({
         animation: false,
         templateUrl: 'js/common/modals/users/users-modal-edit.html',
-        controller: 'modalController as ctrl',
+        controller: 'userModalController as ctrl',
         size: 'md',
         backdrop: 'static',
         keyboard: false,
@@ -25,7 +25,7 @@ angular.module('app')
       return modalInstance = $modal.open({
         animation: false,
         templateUrl: 'js/common/modals/users/users-modal-add.html',
-        controller: 'modalController as ctrl',
+        controller: 'userModalController as ctrl',
         size: 'md',
         backdrop: 'static',
         keyboard: false,

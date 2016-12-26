@@ -27,6 +27,31 @@ angular.module('app')
       });
     }
 
+    self.updateUser = function(userObject) {
+      return $http ({
+        method: 'PUT',
+        url: baseUrl + '/1/objects/User/'+ userObject.id,
+				data: userObject
+      });
+    }
+
+    self.addUser = function(userObject) {
+      return $http ({
+        method: 'POST',
+        url: baseUrl + '/1/objects/User/?returnObject=true',
+				data: userObject
+      });
+    }
+
+		self.deleteUser = function(userObject) {
+			userObject.IsActive = false;
+			return $http ({
+				method: 'PUT',
+				url: baseUrl + '/1/objects/User/'+ userObject.id,
+				data: userObject
+			});
+		}
+
     self.getOrganisations = function() {
       return $http ({
         method: 'GET',
@@ -40,30 +65,5 @@ angular.module('app')
         }
       });
     }
-
-    self.updateUser = function(userObject) {
-      return $http ({
-        method: 'PUT',
-        url: baseUrl + '/1/objects/User/'+ userObject.id,
-				data: userObject
-      });
-    }
-
-    self.addUser = function(userObject) {
-      return $http ({
-        method: 'POST',
-        url: baseUrl + '/1/objects/User/',
-				data: userObject
-      });
-    }
-
-		self.deleteUser = function(userObject) {
-			userObject.IsActive = false;
-			return $http ({
-				method: 'PUT',
-				url: baseUrl + '/1/objects/User/'+ userObject.id,
-				data: userObject
-			});
-		}
 
 });
