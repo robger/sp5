@@ -1,9 +1,10 @@
 angular.module('app')
-	.service('translateService', function($state) {
+	.service('translateService', function($state,notificationService) {
     self = this;
 
     self.languages = ['NL','FR','EN'];
    	var chosenLanguage = _.first(self.languages); // TODO: set chosenLanguage to default language of logged in user
+		self.currentLang = chosenLanguage;
 
     self.getTranslation = function(key){
 				if(translations[key]){
@@ -14,8 +15,9 @@ angular.module('app')
     }
 
 		self.setCurrentLanguage = function(language){
-			debugger;
-			self.chosenLanguage = language;
+			chosenLanguage = language;
+			self.currentLang = language;
+			notificationService.showSuccess("Taal","De geselecteerde taal is nu: " + chosenLanguage);
 			$state.reload();
 		}
 
@@ -70,6 +72,11 @@ angular.module('app')
         FR:'Editer',
         EN:'Edit',
       },
+			Add:{
+        NL:'Toevoegen',
+        FR:'Ajouter',
+        EN:'Add',
+      },
 			Save:{
         NL:'Opslaan',
         FR:'Sauvegarder',
@@ -79,6 +86,11 @@ angular.module('app')
         NL:'Annuleren',
         FR:'Annulér',
         EN:'Cancel',
+      },
+			Delete:{
+        NL:'Verwijderen',
+        FR:'Supprimer',
+        EN:'Delete',
       },
 
       FirstName:{

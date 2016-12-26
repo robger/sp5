@@ -18,6 +18,10 @@ angular.module('app')
 						"fieldName": "IsMemberOfGroup",
 						"operator": "in",
 						"value": orgId
+					},{
+						"fieldName": "IsActive",
+						"operator": "equals",
+						"value": "true"
 					}]
         }
       });
@@ -40,9 +44,26 @@ angular.module('app')
     self.updateUser = function(userObject) {
       return $http ({
         method: 'PUT',
-        url: baseUrl + '/1/objects/User/'+ userObject.id +'?returnObject=false',
+        url: baseUrl + '/1/objects/User/'+ userObject.id,
 				data: userObject
       });
     }
+
+    self.addUser = function(userObject) {
+      return $http ({
+        method: 'POST',
+        url: baseUrl + '/1/objects/User/',
+				data: userObject
+      });
+    }
+
+		self.deleteUser = function(userObject) {
+			userObject.IsActive = false;
+			return $http ({
+				method: 'PUT',
+				url: baseUrl + '/1/objects/User/'+ userObject.id,
+				data: userObject
+			});
+		}
 
 });

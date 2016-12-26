@@ -9,6 +9,7 @@ angular.module('app')
 			return ('#' + $state.$current.url.source + '/').indexOf(url + '/') === 0;
 		};
 
+		debugger;
 		$scope.translateService = translateService;
 
 		$scope.pages = [

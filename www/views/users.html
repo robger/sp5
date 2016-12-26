@@ -14,10 +14,10 @@
     <p>
       <ul class="nav nav-pills" role="tablist">
         <li role="presentation" ng-repeat="org in organisations" ng-class="{'active': (selectedOrgId == org.id)}"><a ng-click="selectOrg(org.id)">{{org.Name}}</a></li>
-        <button type="button" ng-click="addOrg()" class="btn btn-primary pull-right">+</button>
+        <button type="button" ng-click="addUser()" class="btn btn-default pull-right">+Gebruiker</button>
+        <button type="button" ng-click="addOrg()" class="btn btn-default pull-right">+Groep</button>
       </ul>
     </p>
-
 
     <div id="grid1" ui-grid="gridOptions" ui-grid-exporter ui-grid-selection class="grid"></div>
   </div>

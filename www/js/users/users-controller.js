@@ -1,5 +1,5 @@
 angular.module('app')
-	.controller('usersController', function(usersDataService,translateService,$scope,modalService,notificationService) {
+	.controller('usersController', function(usersDataService,translateService,$scope,usersLayoutService,notificationService) {
 
 		$scope.myGridApi = {};
 		$scope.organisations = {};
@@ -35,7 +35,7 @@ angular.module('app')
 				{
 					name: "Options",
 					displayName: translateService.getTranslation('Options'),
-					cellTemplate: '<div class="ui-grid-cell-contents"><button type="button" class="btn btn-xs btn-primary" ng-click="grid.appScope.editRow(row.entity)">Edit</button> </div>',
+					cellTemplate: '<div class="ui-grid-cell-contents"><button type="button" class="btn btn-xs btn-primary" ng-click="grid.appScope.editUser(row.entity)">Edit</button> </div>',
 					enableSorting: false,
 					enableFiltering: false,
 				},
@@ -49,9 +49,9 @@ angular.module('app')
 
 		$scope.usersDataService = usersDataService;
 
-		$scope.editRow = function(row){
+		$scope.editUser = function(row){
 				console.log(row);
-				var modal = modalService.openModal(row);
+				var modal = usersLayoutService.openEditModal(row);
 
 				modal.result.then(function(result){
 						// TODO: should be in one action instead of all properties seperatly
@@ -66,9 +66,33 @@ angular.module('app')
 				});
 		}
 
+		$scope.addUser = function(){
+				var newObj = { IsMemberOfGroup:$scope.selectedOrgId };
+				var modal = usersLayoutService.openAddModal(newObj);
+
+				modal.result.then(function(result){
+						// TODO: should be in one action instead of all properties seperatly
+						var result = result.config.data;
+						newObj.FirstName = result.FirstName;
+						newObj.LastName = result.LastName;
+						newObj.DefaultLanguage = result.DefaultLanguage;
+						newObj.IsMemberOfGroup = result.IsMemberOfGroup;
+						notificationService.showSuccess("Gebruikers", "Gebruiker succesvol toegevoegd");
+
+						debugger;
+						$scope.gridOptions.data.push(newObj);
+					},function(error){
+						debugger;
+				});
+		}
+
 		$scope.selectOrg = function(orgId){
 			$scope.selectedOrgId = orgId;
 			loadUsers($scope.selectedOrgId);
+		}
+
+		$scope.addOrg = function(){
+			notificationService.showError("Organisatie", "To be implemented :-)");
 		}
 
 		var loadOrganisations = function(){
