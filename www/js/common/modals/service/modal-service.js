@@ -24,5 +24,25 @@ angular.module('app')
       });
     }
 
+		self.directive = function(title,body,params){
+			return modalInstance = $modal.open({
+        animation: false,
+        templateUrl: 'js/common/modals/service/modal-directive.html',
+        controller: 'modalDirectiveController as ctrl',
+        size: 'md',
+        backdrop: 'static',
+        keyboard: false,
+        backdropClass: 'backdrop-modal',
+        resolve: {
+          title: function () {
+            return title;
+          },
+          body: function () {
+            return body;
+          },
+        }
+      });
+		}
+
 
 });

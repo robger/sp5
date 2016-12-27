@@ -1,0 +1,14 @@
+<div class="modal-header">
+    <h3 class="modal-title" id="modal-title">{{ctrl.title}}</h3>
+</div>
+<pre>{{ctrl | json}}</pre>
+<div class="modal-body" id="modal-body">
+  <div class="row" ng-repeat="param in ctrl.params">
+    <div class="col-sm-4"><div class="form-group"><label>{{param.label}}</label></div></div>
+    <div class="col-sm-8"><input type="text" class="form-control" ng-model="param.value"></div>
+  </div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" type="button" ng-click="ctrl.saveFunction()">Save</button>
+    <button class="btn btn-warning" type="button" ng-click="ctrl.cancelFunction()">Cancel</button>
+</div>
